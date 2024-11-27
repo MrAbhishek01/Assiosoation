@@ -1,8 +1,6 @@
 package com.abhi.entity;
 
-import java.io.Serializable;
 import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,14 +9,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Setter
+@Getter
 @RequiredArgsConstructor
-public class Person implements Serializable{
+@NoArgsConstructor
+public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer pid;
@@ -30,4 +32,10 @@ public class Person implements Serializable{
 	private String address;
 	@OneToMany(targetEntity = PhoneNumber.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "personinfo")
 	private Set<PhoneNumber> numbers;
+
+	@Override
+	public String toString() {
+		return "Person [pid=" + pid + ", pName=" + pName + ", address=" + address + "]";
+	}
+
 }
